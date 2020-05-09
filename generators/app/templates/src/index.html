@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- 公用头部html -->
+  @@include("./template/header.html", {
+    "title": "首页"
+  })
+  <link rel="stylesheet" href="./styles/index.css">
+</head>
+<body>
+    <!-- bower:js -->
+    <!-- endbower -->
+  <div class="container">
+    <img src="./assets/logo.jpg" />
+    <h1>WOW, Hello World! Let's go!</h1>
+    <p class="function">
+      <span>Less</span>
+      <span>Sass</span>
+      <span>Stylus</span>
+      <span>压缩css</span>
+      <span>Autoprefixer</span>
+      <span>es6</span>
+      <span>commonjs</span>
+      <span>压缩js</span>
+      <span>公用html提取</span>
+      <span>自动生成精灵图</span>
+      <span>本地开发服务器</span>
+      <span>自动刷新</span>
+      <span>多端同步</span>
+      <span>接口跨域</span>
+      <span>版本管理</span>
+    </p>
+    <ul>
+      <li>
+        <a class="icon-index__home"></a>
+      </li>
+      <li>
+        <a class="icon-index__github"></a>
+      </li>
+      <li>
+        <a class="icon-index__npm"></a>
+      </li>
+    </ul>
+    <!-- <ul>
+      <li>
+        <a class="icon_home0"></a>
+      </li>
+      <li>
+        <a class="icon_github0"></a>
+      </li>
+      <li>
+        <a class="icon_npm0"></a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <a class="icon_home1"></a>
+      </li>
+      <li>
+        <a class="icon_github1"></a>
+      </li>
+      <li>
+        <a class="icon_npm1"></a>
+      </li>
+    </ul> -->
+    
+    <!-- 公用footer的html -->
+    @@include("./template/footer.html")
+  </div>
+  <script src="./scripts/lib/jquery/jquery.min.js"></script>
+  <script src="./scripts/index.js"></script>
+
+</body>
+</html>

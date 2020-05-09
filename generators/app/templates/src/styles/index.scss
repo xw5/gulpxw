@@ -1,0 +1,6 @@
+@lazysprite "index"; // 以sprite/index目录生成雪碧图代码在这
+// 全局重置样式
+@import './core/normalize.css';
+// 工程测试样式
+@import './core/test.scss';
+@import './core/footer.css';

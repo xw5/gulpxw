@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- 公用头部html -->
+  @@include("./template/header.html", {
+    "title": "other页"
+  })
+  <link rel="stylesheet" href="./styles/other.css">
+</head>
+<body>
+    <!-- bower:js -->
+    <!-- endbower -->
+  <h1>我是用来测试支持多页的</h1>
+  <ul>
+    <li class="icon-other__es6-logo"></li>
+    <li class="icon-other__less"></li>
+    <li class="icon-other__sass"></li>
+    <li class="icon-other__stylus"></li>
+  </ul>
+  <!-- 公用footer的html -->
+  @@include("./template/footer.html")
+  <script src="./scripts/lib/jquery/jquery.min.js"></script>
+  <script src="./scripts/other.js"></script>
+</body>
+</html>
