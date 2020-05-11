@@ -62,13 +62,25 @@ module.exports = class extends Generator {
     // eslint-disable-next-line default-case
     switch (this.props.cssPreprocessor) {
       case "less":
-        copyList.push("src/styles/other.less", "src/styles/index.less");
+        copyList.push(
+          "src/styles/other.less",
+          "src/styles/index.less",
+          "src/styles/core/test.less"
+        );
         break;
       case "sass":
-        copyList.push("src/styles/other.scss", "src/styles/index.scss");
+        copyList.push(
+          "src/styles/other.scss",
+          "src/styles/index.scss",
+          "src/styles/core/test.scss"
+        );
         break;
       case "stylus":
-        copyList.push("src/styles/other.styl", "src/styles/index.styl");
+        copyList.push(
+          "src/styles/other.styl",
+          "src/styles/index.styl",
+          "src/styles/core/test.styl"
+        );
         break;
     }
 
@@ -79,10 +91,24 @@ module.exports = class extends Generator {
       );
     });
 
-    // Let copyTplList = ["src/template/header.html", ""];
+    let copyTplList = [
+      "src/template/header.html",
+      "gulpfile.js",
+      "package.json"
+    ];
+
+    copyTplList.forEach(item => {
+      this.fs.copyTpl(
+        this.templatePath(item),
+        this.destinationPath(this.props.name + "/" + item),
+        this.props
+      );
+    });
   }
 
   install() {
-    // This.installDependencies();
+    var npmdir = process.cwd() + "/" + this.props.name;
+    process.chdir(npmdir);
+    this.npmInstall();
   }
 };

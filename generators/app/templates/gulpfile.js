@@ -3,14 +3,22 @@ var gulp            = require('gulp');
 var jshint          = require('gulp-jshint');
 var uglify          = require('gulp-uglify');// js压缩
 
+<% if(cssPreprocessor=='less') {%>
 var less            = require('gulp-less'); // less解析
+<% } %>
+<% if(cssPreprocessor=='sass') {%>
 var sass            = require('gulp-sass'); // sass解析
 sass.compiler       = require('node-sass');
+<% } %>
+<% if(cssPreprocessor=='stylus') {%>
 var stylus          = require("gulp-stylus"); // stylus解析
+<% } %>
 var cssImport       = require("gulp-cssimport");// 原生@import css语法会以inline方式导入
 var postcss         = require("gulp-postcss");// 精灵图生成
 var lazysprite      = require("postcss-lazysprite");
+<% if(isNeedRem) {%>
 var pxtorem         = require("postcss-pxtorem");
+<% } %>
 var minifyCSS       = require('gulp-clean-css'); // css压缩
 var prefix          = require('gulp-autoprefixer');// 添加浏览器前辍
 var spriteMuti      = require("gulp.spritesmith-multi");
@@ -109,20 +117,30 @@ gulp.task('scripts',
 
 // 样式处理任务
 gulp.task('styles', function() {
+  <% if(cssPreprocessor=='less') {%>
+  return gulp.src('./src/styles/*.less')
+  <% } %>
+  <% if(cssPreprocessor=='sass') {%>
   return gulp.src('./src/styles/*.scss')
+  <% } %>
+  <% if(cssPreprocessor=='stylus') {%>
+  return gulp.src('./src/styles/*.styl')
+  <% } %>
     .pipe(plumber())
     .pipe(dev(sourcemaps.init()))
     .pipe(cssImport({}))
-
+    <% if(cssPreprocessor=='less') {%>
     // 使用less预处理器
     .pipe(less())
-
+    <% } %>
+    <% if(cssPreprocessor=='sass') {%>
     // 使用sass预处理器
     .pipe(sass().on('error', sass.logError))
-
+    <% } %>
+    <% if(cssPreprocessor=='stylus') {%>
     // 使用stylus预处理器
     .pipe(stylus())
-
+    <% } %>
     .pipe(postcss([
 
       // 精灵图
@@ -135,13 +153,13 @@ gulp.task('styles', function() {
         outputDimensions: false,
         padding: 10,
         keepBackGroundSize: true
-      }),
+      })<% if(isNeedRem) { %>,
       // rem
       pxtorem({
         rootValue: config.designWidth / 10,
         replace: true,
         propList: ['*']
-      })
+      })<% } %>
     ]))
     .pipe(prod(minifyCSS({
       compatibility: 'ie8'
@@ -248,14 +266,18 @@ gulp.task('default', gulp.series('clean', gulp.parallel('styles', 'scripts', 'in
     if (isDev){
       watcherScript = gulp.watch(['./src/scripts/**/*.js'], gulp.parallel('scripts'));
 
+      <% if(cssPreprocessor=='less') {%>
       // 监听less文件
       gulp.watch(['./src/styles/**/*.less','./src/sprite/**/*.*'], gulp.parallel('styles'));
-
+      <% } %>
+      <% if(cssPreprocessor=='sass') {%>
       // 监听scss文件
       gulp.watch(['./src/styles/**/*.scss','./src/sprite/**/*.*'], gulp.parallel('styles'));
-
+      <% } %>
+      <% if(cssPreprocessor=='stylus') {%>
       // 监听stylus文件
       gulp.watch(['./src/styles/**/*.styl','./src/sprite/**/*.*'], gulp.parallel('styles'));
+      <% } %>
 
       gulp.watch('./src/**/*.html', gulp.parallel('includeTemplate'));
       gulp.watch('./src/assets/**/*.*', gulp.parallel('moveAssets'));

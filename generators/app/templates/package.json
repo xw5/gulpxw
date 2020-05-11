@@ -35,22 +35,23 @@
     "gulp-if": "^3.0.0",
     "gulp-jshint": "^1.9.4",
     "gulp-jslint": "^0.2.2",
-    "gulp-less": "^3.0.2",
+    <% if(cssPreprocessor=='less') {%>"gulp-less": "^3.0.2",<% } %>
     "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^8.0.0",
     "gulp-remember": "^1.0.1",
     "gulp-rev-all": "^2.0.3",
-    "gulp-sass": "^4.0.2",
+    <% if(cssPreprocessor=='sass') {%>"gulp-sass": "^4.0.2",
+    "node-sass": "^4.13.1",
+    <% } %>
     "gulp-sourcemaps": "^2.6.5",
-    "gulp-stylus": "^2.7.0",
+    <% if(cssPreprocessor=='stylus') {%>"gulp-stylus": "^2.7.0",<% } %>
     "gulp-uglify": "^1.1.0",
     "gulp-url-replace": "^1.0.2",
     "gulp.spritesmith-multi": "^3.1.0",
     "http-proxy-middleware": "^1.0.3",
     "merge2": "^1.3.0",
-    "node-sass": "^4.13.1",
     "postcss-lazysprite": "^2.3.0",
-    "postcss-pxtorem": "^5.1.1",
+    <% if(isNeedRem) {%>"postcss-pxtorem": "^5.1.1",<% }%>
     "slash": "^3.0.0",
     "through2": "^3.0.1",
     "vinyl-buffer": "^1.0.1",
