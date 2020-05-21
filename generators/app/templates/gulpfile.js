@@ -86,9 +86,9 @@ gulp.task('test', function() {
 // js任务
 gulp.task('scripts',
    gulp.series('test', function scriptsInternal() {
-     return gulp.src(['./src/scripts/*.js'],{since: gulp.lastRun('scripts')})
+     return gulp.src(['./src/scripts/*.js']) // ,{since: gulp.lastRun('scripts')})
       .pipe(plumber())
-      .pipe(cache('scripts')) // 存入缓存
+      //.pipe(cache('scripts')) // 存入缓存
       .pipe(named())
       .pipe(webpackStream({
         mode: isDev ? "development" : "production",
@@ -107,7 +107,7 @@ gulp.task('scripts',
           ]
         }
       }, webpack))
-      .pipe(remmember('scripts'))// 取出所有处理过的文件
+      //.pipe(remmember('scripts'))// 取出所有处理过的文件
       .pipe(dev(sourcemaps.write('.', {
         sourceRoot: 'js-source'
       })))
@@ -285,10 +285,10 @@ gulp.task('default', gulp.series('clean', gulp.parallel('styles', 'scripts', 'in
 
       gulp.watch('./dist/**/*.*').on('change', reload)
       // 管理缓存，当有监听到有文件删除时更新
-      watcherScript.on('unlink', function (filepath) {
-        delete cached.caches['scripts'][slash(path.join(__dirname, filepath))]
-        remmember.forget('scripts', slash(path.join(__dirname, filepath)))
-      })
+      // watcherScript.on('unlink', function (filepath) {
+      //   delete cached.caches['scripts'][slash(path.join(__dirname, filepath))]
+      //   remmember.forget('scripts', slash(path.join(__dirname, filepath)))
+      // })
     }
     done();
   })
