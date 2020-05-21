@@ -10,7 +10,8 @@ module.exports = class extends Generator {
       yosay(
         `欢迎使用基于gulp的多页脚手架： ${chalk.bgWhite.bold.red(
           "generator-gulpxw"
-        )}`
+        )}`,
+        { maxLength: 30 }
       )
     );
 
@@ -107,8 +108,24 @@ module.exports = class extends Generator {
   }
 
   install() {
-    var npmdir = process.cwd() + "/" + this.props.name;
+    let npmdir = process.cwd() + "/" + this.props.name;
     process.chdir(npmdir);
-    this.npmInstall();
+    this.npmInstall().then(
+        function() {
+          this.log(
+            yosay(
+              `WOW,工程初始化完成!\n 定位目录：cd ${this.props.name}\n 开发运行：npm run dev \n 发布运行：npm run build`,
+              { maxLength: 30 }
+            )
+          );
+        }.bind(this)
+      )
+      .catch(function() {
+        this.log(
+          chalk.white.bold.bgRed(
+            ` 安装依赖失败!\n cd ${this.props.name}\n npm install\n 手动安装依赖。`
+          )
+        );
+      });
   }
 };
