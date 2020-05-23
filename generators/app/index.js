@@ -110,7 +110,8 @@ module.exports = class extends Generator {
   install() {
     let npmdir = process.cwd() + "/" + this.props.name;
     process.chdir(npmdir);
-    this.npmInstall().then(
+    this.npmInstall()
+      .then(
         function() {
           this.log(
             yosay(
@@ -123,7 +124,7 @@ module.exports = class extends Generator {
       .catch(function() {
         this.log(
           chalk.white.bold.bgRed(
-            ` 安装依赖失败!\n cd ${this.props.name}\n npm install\n 手动安装依赖。`
+            ` 安装依赖失败!\n cd ${this.props.name}\n npm install\n 可手动安装依赖。`
           )
         );
       });

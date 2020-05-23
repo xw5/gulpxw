@@ -1,6 +1,14 @@
 module.exports = {
+  devBasePath: "./src", // 开发文件目录，默认为src,其它开发代码都会基于此目录，默认为src
+  scriptsPath: "scripts", // js目录,默认scripts
+  scriptsLibPath: "scripts/lib", // 第三方js库目录,默认scripts/lib
+  stylesPath: "styles", // 样式目录,默认styles
+  assetsPath: "assets", // 静态资源如图片，字体，音乐等资源目录,默认assets
+  htmlPath: "", // html文件目录所在, 默认为空也就是在devBasePath下
+
   distPath: './dist', // 开发构建打包到的目录
   buildPath: './build', // 构建代码打包到的目录
+
   browsers: ["last 50 version","> 1%","IE 9"], // css兼容处理
   isVersion: true, // 是否要启动版本管理,如index.js -> index.098f6bcd.js
   designWidth: 750, // 设计稿宽度，用于rem转px
@@ -9,7 +17,7 @@ module.exports = {
    * 假设此路径配http://www.cdn.com/,如html中通过./scripts/index.js,则生成后的代码会指向http://www.cdn.com/scripts/index.js
    */
   cdnUrl: 'https://www.baidu.com/', // 如上线后资源需要上传cdn的，可以修改些参数，gulp会自动把html中的资源地址替换成配置的地址
-  
+
   /**
    * 解决开发环境接口请求跨域的问题
    * 下面示例配置会把http://localhost:8088/api/[user]的接口代理到http://localhost:3000/[user]

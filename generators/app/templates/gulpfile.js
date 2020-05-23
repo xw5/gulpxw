@@ -74,9 +74,29 @@ var outputDir = isDev ? config.distPath : (isNeedVer ? tempVerDir : buildPath); 
 // gulp.series 用于串行（顺序）执行
 // gulp.parallel 用于并行执行
 
+var getScriptPath = function() {
+  return config.devBasePath +"/"+ config.scriptsPath
+}
+
+var getAssetsPath = function() {
+  return config.devBasePath +"/"+ config.assetsPath
+}
+
+var getStylesPath = function() {
+  return config.devBasePath +"/"+ config.stylesPath
+}
+
+var getScriptLibPath = function() {
+  return config.devBasePath +"/"+ config.scriptsLibPath
+}
+
+var getHtmlPath = function() {
+  return config.devBasePath +"/"+ config.htmlPath
+}
+
 // 代码测试任务
 gulp.task('test', function() {
-   return gulp.src(['./src/scripts/**/*.js','!./src/scripts/lib/**'],{since:gulp.lastRun('test')})
+   return gulp.src([getScriptPath()+'/**/*.js','!./src/scripts/lib/**'],{since:gulp.lastRun('test')})
     .pipe(plumber())
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
@@ -86,7 +106,7 @@ gulp.task('test', function() {
 // js任务
 gulp.task('scripts',
    gulp.series('test', function scriptsInternal() {
-     return gulp.src(['./src/scripts/*.js']) // ,{since: gulp.lastRun('scripts')})
+     return gulp.src([getScriptPath()+'/*.js']) // ,{since: gulp.lastRun('scripts')})
       .pipe(plumber())
       //.pipe(cache('scripts')) // 存入缓存
       .pipe(named())
@@ -111,20 +131,20 @@ gulp.task('scripts',
       .pipe(dev(sourcemaps.write('.', {
         sourceRoot: 'js-source'
       })))
-      .pipe(gulp.dest(outputDir+'/scripts'));
+      .pipe(gulp.dest(outputDir+'/'+config.scriptsPath));
    })
 );
 
 // 样式处理任务
 gulp.task('styles', function() {
   <% if(cssPreprocessor=='less') {%>
-  return gulp.src('./src/styles/*.less')
+  return gulp.src(getStylesPath()+'/*.less')
   <% } %>
   <% if(cssPreprocessor=='sass') {%>
-  return gulp.src('./src/styles/*.scss')
+  return gulp.src(getStylesPath()+'/*.scss')
   <% } %>
   <% if(cssPreprocessor=='stylus') {%>
-  return gulp.src('./src/styles/*.styl')
+  return gulp.src(getStylesPath()+'/*.styl')
   <% } %>
     .pipe(plumber())
     .pipe(dev(sourcemaps.init()))
@@ -146,9 +166,9 @@ gulp.task('styles', function() {
       // 精灵图
       lazysprite({
         imagePath:'./src/sprite',
-        stylesheetInput: './src/styles',
-        stylesheetRelative:  outputDir+'/styles',
-        spritePath: outputDir+'/assets/sprites',
+        stylesheetInput: getStylesPath(),
+        stylesheetRelative:  outputDir+'/'+config.stylesPath,
+        spritePath: outputDir+'/'+config.assetsPath+'/sprites',
         nameSpace: 'icon-',
         outputDimensions: false,
         padding: 10,
@@ -170,12 +190,12 @@ gulp.task('styles', function() {
     .pipe(dev(sourcemaps.write('.', {
       sourceRoot: 'css-source'
     })))
-    .pipe(gulp.dest(outputDir+'/styles'));
+    .pipe(gulp.dest(outputDir+'/'+config.stylesPath));
 });
 
 // 移动静态文件到目标目录
 gulp.task('moveAssets', function(done) {
-  return gulp.src(['./src/assets/**/*.*'],{since: gulp.lastRun('moveAssets')}) // since增量构建：只会选中从上次运行moveAssets后修改的文件
+  return gulp.src([getAssetsPath()+'/**/*.*'],{since: gulp.lastRun('moveAssets')}) // since增量构建：只会选中从上次运行moveAssets后修改的文件
   .pipe(plumber())
   .pipe(gulp.dest(outputDir+'/assets'));
   done();
@@ -183,29 +203,29 @@ gulp.task('moveAssets', function(done) {
 
 // 移动第三方库到目标目录
 gulp.task('moveLib', function(done) {
-  return gulp.src(['./src/scripts/lib/**/*.*'],{since: gulp.lastRun('moveLib')}) // since增量构建：只会选中从上次运行moveLib后修改的文件
+  return gulp.src([getScriptLibPath()+'/**/*.*'],{since: gulp.lastRun('moveLib')}) // since增量构建：只会选中从上次运行moveLib后修改的文件
   .pipe(plumber())
-  .pipe(gulp.dest(outputDir+'/scripts/lib'));
+  .pipe(gulp.dest(outputDir+"/"+config.scriptsLibPath));
   done();
 });
 
 // 路径替换
 var cdnUrl = config.cdnUrl ? config.cdnUrl : "./";
 var changeUrl = {
-  "\\./styles/": cdnUrl + "styles/",
-  "\\./assets/": cdnUrl + "assets/",
-  "\\./scripts/": cdnUrl + "scripts/"
+  ["\\./"+config.stylesPath+"/"]: cdnUrl + config.stylesPath+"/",
+  ["\\./"+ config.scriptsPath +"/"]: cdnUrl + config.scriptsPath +"/",
+  ["\\./"+ config.assetsPath +"/"]: cdnUrl + config.assetsPath +"/"
 };
 // html模板处理任务
 gulp.task('includeTemplate', function() {
-  return gulp.src(['./src/*.html']) // ,{since: gulp.lastRun('includeTemplate')}since增量构建：只会选中从上次运行includeTemplate后修改的文件
+  return gulp.src([getHtmlPath()+'/*.html']) // ,{since: gulp.lastRun('includeTemplate')}since增量构建：只会选中从上次运行includeTemplate后修改的文件
   .pipe(plumber())
   .pipe(includeTemplate({
     prefix: '@@',
     basepath: '@file'
   }))
   .pipe(gulpif(!isDev && !isNeedVer, replaceUrl(changeUrl)))
-  .pipe(gulp.dest(outputDir));
+  .pipe(gulp.dest(outputDir+config.htmlPath));
 });
 
 var requestProxy = null;
@@ -250,7 +270,7 @@ gulp.task("verCtrl", function (done) {
         dontRenameFile:[/.+\.html$/]
       }))
       .pipe(gulpif('*.html',replaceUrl(changeUrl)))
-      .pipe(gulp.dest(buildPath))
+      .pipe(gulp.dest(buildPath+config.htmlPath))
   }
   done();
 });
@@ -264,26 +284,26 @@ gulp.task('cleanTemp', function() {
 gulp.task('default', gulp.series('clean', gulp.parallel('styles', 'scripts', 'includeTemplate', 'moveAssets', 'moveLib'), 'verCtrl', 'cleanTemp', 'server',
   function watcher(done) {
     if (isDev){
-      watcherScript = gulp.watch(['./src/scripts/**/*.js'], gulp.parallel('scripts'));
+      watcherScript = gulp.watch([getScriptPath()+'/**/*.js'], gulp.parallel('scripts'));
 
       <% if(cssPreprocessor=='less') {%>
       // 监听less文件
-      gulp.watch(['./src/styles/**/*.less','./src/sprite/**/*.*'], gulp.parallel('styles'));
+      gulp.watch([getStylesPath()+'/**/*.less',config.devBasePath+'/sprite/**/*.*'], gulp.parallel('styles'));
       <% } %>
       <% if(cssPreprocessor=='sass') {%>
       // 监听scss文件
-      gulp.watch(['./src/styles/**/*.scss','./src/sprite/**/*.*'], gulp.parallel('styles'));
+      gulp.watch([getStylesPath()+'/**/*.scss',config.devBasePath+'/sprite/**/*.*'], gulp.parallel('styles'));
       <% } %>
       <% if(cssPreprocessor=='stylus') {%>
       // 监听stylus文件
-      gulp.watch(['./src/styles/**/*.styl','./src/sprite/**/*.*'], gulp.parallel('styles'));
+      gulp.watch([getStylesPath()+'/**/*.styl',config.devBasePath+'/sprite/**/*.*'], gulp.parallel('styles'));
       <% } %>
 
-      gulp.watch('./src/**/*.html', gulp.parallel('includeTemplate'));
-      gulp.watch('./src/assets/**/*.*', gulp.parallel('moveAssets'));
-      gulp.watch('./src/lib/**/*.*', gulp.parallel('moveLib'));
+      gulp.watch(getHtmlPath()+'/**/*.html', gulp.parallel('includeTemplate'));
+      gulp.watch(getAssetsPath()+'/**/*.*', gulp.parallel('moveAssets'));
+      gulp.watch(getScriptLibPath()+'/**/*.*', gulp.parallel('moveLib'));
 
-      gulp.watch('./dist/**/*.*').on('change', reload)
+      gulp.watch(config.distPath+'/**/*.*').on('change', reload)
       // 管理缓存，当有监听到有文件删除时更新
       // watcherScript.on('unlink', function (filepath) {
       //   delete cached.caches['scripts'][slash(path.join(__dirname, filepath))]
@@ -297,11 +317,11 @@ gulp.task('default', gulp.series('clean', gulp.parallel('styles', 'scripts', 'in
 /**** 手动精灵图生成任务 ****/
 // 单独提供精灵图任务，解决想手动生成精灵图的需求
 gulp.task('cleanSprite', function() {
-  return del(["./src/spriteok/"])
+  return del([config.devBasePath+"/spriteok/"])
 });
 
 gulp.task('sprites',gulp.series('cleanSprite', function createSprite() {
-  var spriteData = gulp.src("./src/sprite/**/*.png")
+  var spriteData = gulp.src(config.devBasePath+"/sprite/**/*.png")
   .pipe(plumber())
   .pipe(spriteMuti({
     spritesmith: function(options, sprite, icons) {
@@ -338,11 +358,11 @@ gulp.task('sprites',gulp.series('cleanSprite', function createSprite() {
 
   // Pipe image stream through image optimizer and onto disk
   var imgStream = spriteData.img
-  .pipe(gulp.dest('src/spriteok'))
+  .pipe(gulp.desconfig.devBasePath+t/spriteok'))
 
   // Pipe CSS stream through CSS optimizer and onto disk
   var cssStream = spriteData.css
-  .pipe(gulp.dest('src/spriteok'))
+  .pipe(gulp.desconfig.devBasePath+t/spriteok'))
   return merge(imgStream, cssStream);
 }))
 /**** 手动精灵图生成任务 ****/
