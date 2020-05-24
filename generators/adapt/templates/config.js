@@ -17,7 +17,7 @@ module.exports = {
    * 下面配置用于生产构建，主要用于有些项目的静态资源要放cdn的，配置此参数gulp会自动替换html中的路径
    * 假设此路径配http://www.cdn.com/,如html中通过./scripts/index.js,则生成后的代码会指向http://www.cdn.com/scripts/index.js
    */
-  cdnUrl: 'https://www.baidu.com/', // 如上线后资源需要上传cdn的，可以修改些参数，gulp会自动把html中的资源地址替换成配置的地址
+  cdnUrl: '', // 如上线后资源需要上传cdn的，可以修改些参数，gulp会自动把html中的资源地址替换成配置的地址
 
   /**
    * 解决开发环境接口请求跨域的问题
