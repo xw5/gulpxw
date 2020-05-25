@@ -12,12 +12,12 @@ npm install -g https://gitee.com/github-9819409/gulpxw.git
 
 ### 通过yo命令生成项目模板：
 
-1. 通过yo gulpxw可生成全新项目模板
+方式一 对于新起项目，可以通过yo gulpxw可生成全新项目模板
 
 ```bash
     yo gulpxw
 ```
-2. 通过yo gulpxw:adapt 可在旧老项目下生成项目构建所需的相关配置文件，达到老项目也能使用的目的
+方式二 对于已经存在的项目，可以通过yo gulpxw:adapt 可在旧老项目下生成项目构建所需的相关配置文件，再修改config.js适配目录结构，达到老项目也能使用的目的
 
 ```bash
     yo gulpxw:adapt
@@ -35,16 +35,16 @@ npm install -g https://gitee.com/github-9819409/gulpxw.git
 
  * 可配置性强
     * 通过初始化命令行选择自己需要的功能
-    * 通过***config.js***自由配置项目结构和一些构建方式
+    * 可通过修改***config.js***，自由配置项目结构和一些构建方式
  * css预处理器支持：***Less/Sass/Stylus***
  * css模块化：***@import***语法自动打包
  * JS模块化开发：***Commonjs/Es6 Module***
- * HTML模块化：***@@include***引入模板文件
- * es6语法支持，自动生成es5
+ * HTML模块化，支持模板渲染：***@@include***引入模板文件
+ * Es6语法支持，自动生成Es5
  * js压缩混淆/css压缩
  * 静态资源[asetsname.hash.ext]版本管理
  * 静态资源cdn路径自动替换
- * 本地开发服务器：***BrowserSync***
+ * 本地多端同步开发服务器：***BrowserSync***
  * 保存自动刷新界面
  * 开发服务器请求接口跨域解决：****httpProxyMiddleware***
  * 精灵图生成
