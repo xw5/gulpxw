@@ -1,2 +1,7 @@
 node_modules
 coverage
+/node_modules
+/build
+/dist
+/temp-version
+spriteok

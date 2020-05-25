@@ -56,7 +56,7 @@ module.exports = class extends Generator {
       "src/styles/core/normalize.css",
       "package-lock.json",
       "config.js",
-      ".gitignore",
+      "backup.gitignore",
       ".jshintrc"
     ];
 

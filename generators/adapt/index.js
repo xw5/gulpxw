@@ -42,7 +42,7 @@ module.exports = class extends Generator {
     let copyList = [
       "package-lock.json",
       "config.js",
-      ".gitignore",
+      "backup.gitignore",
       ".jshintrc"
     ];
 

@@ -11,6 +11,6 @@ describe('generator-gulpxw:app', () => {
   });
 
   it('creates files', () => {
-    assert.file(['dummyfile.txt']);
+    assert.file(['gulpfile.js','package.json','config.js']);
   });
 });
