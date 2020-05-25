@@ -209,7 +209,7 @@ gulp.task('moveAssets', function(done) {
 gulp.task('moveLib', function(done) {
   return gulp.src([getOtherLibPath()+'/**/*.*'],{since: gulp.lastRun('moveLib')}) // since增量构建：只会选中从上次运行moveLib后修改的文件
   .pipe(plumber())
-  .pipe(gulp.dest(outputDir+"/"+config.scriptsLibPath));
+  .pipe(gulp.dest(outputDir+"/"+config.otherLibPath));
   done();
 });
 

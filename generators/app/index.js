@@ -47,6 +47,7 @@ module.exports = class extends Generator {
     // 直接复制的文件
     let copyList = [
       "src/assets",
+      "src/otherlib",
       "src/scripts",
       "src/sprite",
       "src/template/footer.html",
