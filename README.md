@@ -50,14 +50,49 @@ npm install -g https://gitee.com/github-9819409/gulpxw.git
  * 精灵图生成
  * 移动端REM布局：***pxtorem***
 
+ ## 脚手架生成的项目目录
+ 通过脚手加生成的项目目录结构如下:
+
+ * 所有开发文件都存放于***src***目录下
+ * ***src/assets***下存放静态资源
+ * ***src/otherlib***存放第三方库，如jquery,layui等
+ * ***src/scripts***存放脚本文件，子目录core下存放一些js模块文件
+ * ***src/sprite***存放图片资源文件，会按目录生成精灵图文件和对应css文件
+ * ***src/styles***存放样式文件，子目录core存放css模块文件
+ * ***src/template***存放html模块文件
+
+> 注：项目目录结构是支持配置的，config.js可以指定各文件所存放目录，这样即可适配老项目，也可以按个人喜好安排目录结构
+
+ ``` md
+ projectName:
+│  .jshintrc
+│  backup.gitignore
+│  config.js
+│  file.txt
+│  gulpfile.js
+│  package-lock.json
+│  package.json
+│  
+└─src
+    │  index.html
+    │  other.html  
+    ├─assets
+    │      
+    ├─otherlib
+    │  └─jquery
+    │          
+    ├─scripts
+    │  └─core
+    │          
+    ├─sprite
+    │  ├─index
+    │  └─other
+    │          
+    ├─styles
+    │  └─core      
+    └─template
+ ```
+
 ## License
 
 Apache-2.0 © [xiewu](https://gitee.com/github-9819409)
-
-
-[npm-image]: https://badge.fury.io/js/generator-gulpxw.svg
-[npm-url]: https://npmjs.org/package/generator-gulpxw
-[travis-image]: https://travis-ci.com/xw5/generator-gulpxw.svg?branch=master
-[travis-url]: https://travis-ci.com/xw5/generator-gulpxw
-[daviddm-image]: https://david-dm.org/xw5/generator-gulpxw.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/xw5/generator-gulpxw
