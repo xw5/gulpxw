@@ -293,15 +293,15 @@ gulp.task('default', gulp.series('clean', gulp.parallel('styles', 'scripts', 'in
 
       <% if(cssPreprocessor=='less') {%>
       // 监听less文件
-      gulp.watch([getStylesPath()+'/**/*.less',config.devBasePath+'/sprite/**/*.*'], gulp.parallel('styles'));
+      gulp.watch([getStylesPath()+'/**/*.less', getStylesPath()+'/**/*.css', config.devBasePath+'/sprite/**/*.*'], gulp.parallel('styles'));
       <% } %>
       <% if(cssPreprocessor=='sass') {%>
       // 监听scss文件
-      gulp.watch([getStylesPath()+'/**/*.scss',config.devBasePath+'/sprite/**/*.*'], gulp.parallel('styles'));
+      gulp.watch([getStylesPath()+'/**/*.scss', getStylesPath()+'/**/*.css', config.devBasePath+'/sprite/**/*.*'], gulp.parallel('styles'));
       <% } %>
       <% if(cssPreprocessor=='stylus') {%>
       // 监听stylus文件
-      gulp.watch([getStylesPath()+'/**/*.styl',config.devBasePath+'/sprite/**/*.*'], gulp.parallel('styles'));
+      gulp.watch([getStylesPath()+'/**/*.styl', getStylesPath()+'/**/*.css', config.devBasePath+'/sprite/**/*.*'], gulp.parallel('styles'));
       <% } %>
 
       gulp.watch([getHtmlPath()+'/**/*.html',getHtmlTemplatePath()+"/**/*.*"], gulp.parallel('includeTemplate'));
