@@ -264,7 +264,7 @@ gulp.task('clean', function() {
   if (!isDev && isNeedVer) {
     cleanDir.push(buildPath);
   }
-  return del(cleanDir);
+  return del(cleanDir,{force: true});
 });
 
 // 版本管理
@@ -272,10 +272,12 @@ gulp.task("verCtrl", function (done) {
   if (!isDev && isNeedVer) {
     return gulp.src(tempVerDir+"/**")
       .pipe(rev.revision({
-        dontRenameFile:[/.+\.html$/]
+        dontGlobal:[new RegExp(config.otherLibPath+"\\.+")],
+        dontUpdateReference:[".shtml",".html"],
+        dontRenameFile:[/.+\.shtml$/,/.+\.html$/]
       }))
-      .pipe(gulpif('*.html',replaceUrl(changeUrl)))
-      .pipe(gulp.dest(buildPath+config.htmlPath))
+      .pipe(gulpif('*.html' || "*.shtml", replaceUrl(changeUrl)))
+      .pipe(gulp.dest(buildPath))
   }
   done();
 });
