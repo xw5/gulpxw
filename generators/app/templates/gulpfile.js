@@ -272,7 +272,7 @@ gulp.task("verCtrl", function (done) {
   if (!isDev && isNeedVer) {
     return gulp.src(tempVerDir+"/**")
       .pipe(rev.revision({
-        dontGlobal:[new RegExp(config.otherLibPath+"\\.+")],
+        dontGlobal:[new RegExp(config.otherLibPath+"/.+")],
         dontUpdateReference:[".shtml",".html"],
         dontRenameFile:[/.+\.shtml$/,/.+\.html$/]
       }))
