@@ -87,7 +87,7 @@ var getStylesPath = function() {
 }
 
 var getHtmlPath = function() {
-  return config.devBasePath +"/"+ config.htmlPath
+  return config.htmlPath ? config.devBasePath +"/"+ config.htmlPath : config.devBasePath
 }
 
 var getHtmlTemplatePath = function() {
