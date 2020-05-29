@@ -223,7 +223,7 @@ var changeUrl = {
 };
 // html模板处理任务
 gulp.task('includeTemplate', function() {
-  return gulp.src([getHtmlPath()+'/*.html']) // ,{since: gulp.lastRun('includeTemplate')}since增量构建：只会选中从上次运行includeTemplate后修改的文件
+  return gulp.src([getHtmlPath()+'/*.html',getHtmlPath()+'/*.shtml']) // ,{since: gulp.lastRun('includeTemplate')}since增量构建：只会选中从上次运行includeTemplate后修改的文件
   .pipe(plumber())
   .pipe(includeTemplate({
     prefix: '@@',
