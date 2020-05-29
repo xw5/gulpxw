@@ -268,6 +268,12 @@ gulp.task('clean', function() {
 });
 
 // 版本管理
+function filteNoHtml(file) {
+  if (file.path.indexOf("html") < 0) {
+    return false
+  }
+  return true;
+}
 gulp.task("verCtrl", function (done) {
   if (!isDev && isNeedVer) {
     return gulp.src(tempVerDir+"/**")
@@ -276,7 +282,7 @@ gulp.task("verCtrl", function (done) {
         dontUpdateReference:[".shtml",".html"],
         dontRenameFile:[/.+\.shtml$/,/.+\.html$/]
       }))
-      .pipe(gulpif('*.html' || "*.shtml", replaceUrl(changeUrl)))
+      .pipe(gulpif(filteNoHtml, replaceUrl(changeUrl)))
       .pipe(gulp.dest(buildPath))
   }
   done();
