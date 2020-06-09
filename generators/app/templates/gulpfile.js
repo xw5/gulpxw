@@ -174,7 +174,7 @@ gulp.task('styles', function() {
         stylesheetRelative:  outputDir+'/'+config.stylesPath,
         spritePath: outputDir+'/'+config.assetsPath+'/sprites',
         nameSpace: 'icon-',
-        outputDimensions: false,
+        outputDimensions: true,
         padding: 10,
         keepBackGroundSize: true
       })<% if(isNeedRem) { %>,
