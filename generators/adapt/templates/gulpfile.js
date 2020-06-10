@@ -312,7 +312,7 @@ gulp.task('default', gulp.series('clean', gulp.parallel('styles', 'scripts', 'in
       gulp.watch([getStylesPath()+'/**/*.styl', getStylesPath()+'/**/*.css', config.devBasePath+'/sprite/**/*.*'], gulp.parallel('styles'));
       <% } %>
 
-      gulp.watch([getHtmlPath()+'/**/*.html',getHtmlTemplatePath()+"/**/*.*"], gulp.parallel('includeTemplate'));
+      gulp.watch([getHtmlPath()+'/**/*.html',getHtmlPath()+'/**/*.shtml',getHtmlTemplatePath()+"/**/*.*"], gulp.parallel('includeTemplate'));
       gulp.watch(getAssetsPath()+'/**/*.*', gulp.parallel('moveAssets'));
       gulp.watch(getOtherLibPath()+'/**/*.*', gulp.parallel('moveLib'));
 
