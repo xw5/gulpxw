@@ -29,12 +29,12 @@
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^2.3.1",
     "gulp-cached": "^1.1.1",
-    "gulp-changed": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-cssimport": "^7.0.0",
     "gulp-file-include": "^2.1.1",
     "gulp-if": "^3.0.0",
     "gulp-jshint": "^1.9.4",
+    "gulp-jslint": "^0.2.2",
     <% if(cssPreprocessor=='less') {%>"gulp-less": "^3.0.2",<% } %>
     "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^8.0.0",

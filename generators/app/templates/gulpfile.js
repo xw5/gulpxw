@@ -41,7 +41,6 @@ var reload          = bSync.reload;
 var rev             = require('gulp-rev-all')
 
 var gulpif          = require("gulp-if");
-var changed         = require("gulp-changed");
 var plumber         = require('gulp-plumber');
 var del             = require('del'); // 删除文件
 var path            = require('path');
@@ -112,7 +111,6 @@ gulp.task('test', function() {
 gulp.task('scripts',
    gulp.series('test', function scriptsInternal() {
      return gulp.src([getScriptPath()+'/*.js']) // ,{since: gulp.lastRun('scripts')})
-      .pipe(changed(outputDir+'/'+config.scriptsPath))
       .pipe(plumber())
       //.pipe(cache('scripts')) // 存入缓存
       .pipe(named())
@@ -152,7 +150,6 @@ gulp.task('styles', function() {
   <% if(cssPreprocessor=='stylus') {%>
   return gulp.src(getStylesPath()+'/*.styl')
   <% } %>
-    .pipe(changed(outputDir+'/'+config.stylesPath,{extension: ".css"}))
     .pipe(plumber())
     .pipe(dev(sourcemaps.init()))
     .pipe(cssImport({}))
@@ -181,6 +178,7 @@ gulp.task('styles', function() {
         padding: 10,
         keepBackGroundSize: true
       })<% if(isNeedRem) { %>,
+      // rem
       pxtorem({
         rootValue: config.designWidth / 10,
         replace: true,
@@ -202,7 +200,6 @@ gulp.task('styles', function() {
 // 移动静态文件到目标目录
 gulp.task('moveAssets', function(done) {
   return gulp.src([getAssetsPath()+'/**/*.*'],{since: gulp.lastRun('moveAssets')}) // since增量构建：只会选中从上次运行moveAssets后修改的文件
-  .pipe(changed(outputDir+'/'+config.assetsPath))
   .pipe(plumber())
   .pipe(gulp.dest(outputDir+'/'+config.assetsPath));
   done();
@@ -211,7 +208,6 @@ gulp.task('moveAssets', function(done) {
 // 移动第三方库到目标目录
 gulp.task('moveLib', function(done) {
   return gulp.src([getOtherLibPath()+'/**/*.*'],{since: gulp.lastRun('moveLib')}) // since增量构建：只会选中从上次运行moveLib后修改的文件
-  .pipe(changed(outputDir+"/"+config.otherLibPath))
   .pipe(plumber())
   .pipe(gulp.dest(outputDir+"/"+config.otherLibPath));
   done();
@@ -228,7 +224,6 @@ var changeUrl = {
 // html模板处理任务
 gulp.task('includeTemplate', function() {
   return gulp.src([getHtmlPath()+'/*.html',getHtmlPath()+'/*.shtml']) // ,{since: gulp.lastRun('includeTemplate')}since增量构建：只会选中从上次运行includeTemplate后修改的文件
-  .pipe(changed(outputDir+config.htmlPath))
   .pipe(plumber())
   .pipe(includeTemplate({
     prefix: '@@',
