@@ -1,0 +1,18 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true,
+    "commonjs": true
+  },
+  "globals": {
+    "$": "readonly"
+  },
+  "rules": {
+      "semi": 1,
+      "no-undef": 1,
+      "no-unused-vars": 2
+  }
+}

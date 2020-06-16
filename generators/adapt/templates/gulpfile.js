@@ -1,6 +1,6 @@
 let config          = require("./config.js");// 全局自定义配置文件
 var gulp            = require('gulp');
-var jshint          = require('gulp-jshint');
+var eslint          = require("gulp-eslint");
 var uglify          = require('gulp-uglify');// js压缩
 
 <% if(cssPreprocessor=='less') {%>
@@ -102,9 +102,9 @@ var getOtherLibPath = function() {
 gulp.task('test', function() {
    return gulp.src([getScriptPath()+'/**/*.js','!'+getOtherLibPath()+'/**'],{since:gulp.lastRun('test')})
     .pipe(plumber())
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    .pipe(jshint.reporter('fail'));
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
 });
 
 // js任务

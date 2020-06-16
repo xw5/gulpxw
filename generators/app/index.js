@@ -54,11 +54,11 @@ module.exports = class extends Generator {
       "src/index.html",
       "src/other.html",
       "src/styles/core/footer.css",
-      "src/styles/core/normalize.css",
+      "src/styles/core/reset.css",
       "package-lock.json",
       "config.js",
       "backup.gitignore",
-      ".jshintrc"
+      ".eslintrc"
     ];
 
     // eslint-disable-next-line default-case

@@ -43,7 +43,7 @@ module.exports = class extends Generator {
       "package-lock.json",
       "config.js",
       "backup.gitignore",
-      ".jshintrc"
+      ".eslintrc"
     ];
 
     copyList.forEach(item => {
