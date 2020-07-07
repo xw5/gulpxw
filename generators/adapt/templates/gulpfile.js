@@ -104,7 +104,7 @@ gulp.task('test', function() {
     .pipe(plumber())
     .pipe(eslint())
     .pipe(eslint.format())
-    .pipe(eslint.failAfterError());
+    //.pipe(eslint.failAfterError());
 });
 
 // js任务
