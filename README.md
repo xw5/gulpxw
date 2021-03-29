@@ -71,9 +71,7 @@ npm install -g generator-gulpxw
 │  .jshintrc
 │  backup.gitignore
 │  config.js
-│  file.txt
 │  gulpfile.js
-│  package-lock.json
 │  package.json
 │  
 └─src
