@@ -8,8 +8,7 @@
 <meta name="keywords" content="页面关键字" />
 <meta name="renderer" content="webkit" /> <!-- 启用360浏览器的极速模式(webkit) -->
 <link rel="shortcut icon" type="image/ico" href="/favicon.ico"/> <!-- 添加 favicon icon -->
-<% if(isNeedRem) {%>
-<!-- 动态修改html的fontSize值来使用REM适配 -->
+ <!-- 动态修改html的fontSize值来使用REM适配 -->
 <script type="text/javascript">
   function remRest() {
     var currentWidth = document.documentElement.clientWidth;
@@ -31,4 +30,3 @@
     remRest();
   }
 </script>
-<% } %>

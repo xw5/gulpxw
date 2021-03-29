@@ -3,11 +3,11 @@
 
 ## 安装
 
-### 全局安装yeoman和generator-gulpxw（暂未发布到npm）
+### 全局安装yeoman和generator-gulpxw
 
 ```bash
 npm install -g yo
-npm install -g https://gitee.com/github-9819409/gulpxw.git
+npm install -g generator-gulpxw
 ```
 
 ### 通过yo命令生成项目模板：
@@ -61,7 +61,10 @@ npm install -g https://gitee.com/github-9819409/gulpxw.git
  * ***src/styles***存放样式文件，子目录core存放css模块文件
  * ***src/template***存放html模块文件
 
-> 注：项目目录结构是支持配置的，config.js可以指定各文件所存放目录，这样即可适配老项目，也可以按个人喜好安排目录结构
+## 特别注意
+> * 对于不想使用css预处理器的，less和sass随便选一个即可,他们完全支持原生的css的
+> * 对于网络不是特别好的不推荐使用自动精灵图生成，在我自测过程中发现自动生成精灵图会很大查验率出现PhantomJS not found on PATH，如果你坚持要用，你可以按提示操作，去提示指定的url下载下来再拷贝到指定目录也可解决。
+> * 项目目录结构是支持配置的，config.js可以指定各文件所存放目录，这样即可适配老项目，也可以按个人喜好安排目录结构
 
  ``` md
  projectName:

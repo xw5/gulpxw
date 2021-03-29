@@ -7,15 +7,16 @@ var uglify          = require('gulp-uglify');// js压缩
 var less            = require('gulp-less'); // less解析
 <% } %>
 <% if(cssPreprocessor=='sass') {%>
-var sass            = require('gulp-sass'); // sass解析
-sass.compiler       = require('node-sass');
+var sass = require('gulp-dart-sass'); // sass解析
 <% } %>
 <% if(cssPreprocessor=='stylus') {%>
 var stylus          = require("gulp-stylus"); // stylus解析
 <% } %>
 var cssImport       = require("gulp-cssimport");// 原生@import css语法会以inline方式导入
 var postcss         = require("gulp-postcss");// 精灵图生成
+<% if(isNeedAutoSprite) { %>
 var lazysprite      = require("postcss-lazysprite");
+<% } %>
 <% if(isNeedRem) {%>
 var pxtorem         = require("postcss-pxtorem");
 <% } %>
@@ -167,6 +168,7 @@ gulp.task('styles', function() {
     <% } %>
     .pipe(postcss([
 
+      <% if(isNeedAutoSprite) { %>
       // 精灵图
       lazysprite({
         imagePath:'./src/sprite',
@@ -177,7 +179,9 @@ gulp.task('styles', function() {
         outputDimensions: true,
         padding: 10,
         keepBackGroundSize: true
-      })<% if(isNeedRem) { %>,
+      }),
+      <% } %>
+      <% if(isNeedRem) { %>
       // rem
       pxtorem({
         rootValue: config.designWidth / 10,

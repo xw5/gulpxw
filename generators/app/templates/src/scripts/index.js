@@ -21,3 +21,5 @@ $.ajax({
     console.log("ajax fail:", res);
   }
 });
+
+console.log(location.href);

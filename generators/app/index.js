@@ -32,7 +32,13 @@ module.exports = class extends Generator {
       {
         type: "confirm",
         name: "isNeedRem",
-        message: "是否需要使用rem布局",
+        message: "是否需要使用rem布局？",
+        default: false
+      },
+      {
+        type: "confirm",
+        name: "isNeedAutoSprite",
+        message: "是否需要自动生成精灵图？",
         default: false
       }
     ];
@@ -55,36 +61,10 @@ module.exports = class extends Generator {
       "src/other.html",
       "src/styles/core/footer.css",
       "src/styles/core/reset.css",
-      "package-lock.json",
       "config.js",
       "backup.gitignore",
       ".eslintrc"
     ];
-
-    // eslint-disable-next-line default-case
-    switch (this.props.cssPreprocessor) {
-      case "less":
-        copyList.push(
-          "src/styles/other.less",
-          "src/styles/index.less",
-          "src/styles/core/test.less"
-        );
-        break;
-      case "sass":
-        copyList.push(
-          "src/styles/other.scss",
-          "src/styles/index.scss",
-          "src/styles/core/test.scss"
-        );
-        break;
-      case "stylus":
-        copyList.push(
-          "src/styles/other.styl",
-          "src/styles/index.styl",
-          "src/styles/core/test.styl"
-        );
-        break;
-    }
 
     copyList.forEach(item => {
       this.fs.copy(
@@ -98,6 +78,31 @@ module.exports = class extends Generator {
       "gulpfile.js",
       "package.json"
     ];
+
+    // eslint-disable-next-line default-case
+    switch (this.props.cssPreprocessor) {
+      case "less":
+        copyTplList.push(
+          "src/styles/other.less",
+          "src/styles/index.less",
+          "src/styles/core/test.less"
+        );
+        break;
+      case "sass":
+        copyTplList.push(
+          "src/styles/other.scss",
+          "src/styles/index.scss",
+          "src/styles/core/test.scss"
+        );
+        break;
+      case "stylus":
+        copyTplList.push(
+          "src/styles/other.styl",
+          "src/styles/index.styl",
+          "src/styles/core/test.styl"
+        );
+        break;
+    }
 
     copyTplList.forEach(item => {
       this.fs.copyTpl(

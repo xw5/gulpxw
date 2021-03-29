@@ -1,21 +1,28 @@
 {
   "name": "generator-gulpxw",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "基于gulp的多页面脚手架",
-  "homepage": "",
   "author": {
     "name": "xiewu",
-    "email": "412832768@qq.com",
-    "url": ""
+    "email": "412832768@qq.com"
   },
   "files": [
     "generators"
   ],
   "main": "generators/index.js",
   "keywords": [
-    "gulp gulpxw multi-page",
-    "yeoman-generator"
+    "gulp",
+    "gulpxw",
+    "multi-page",
+    "multi page scaffold",
+    "generator-gulpxw",
+    "yeoman"
   ],
+  "homepage": "https://gitee.com/github-9819409/gulpxw",
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/github-9819409/gulpxw"
+  },
   "devDependencies": {
     "yeoman-test": "^1.7.0",
     "yeoman-assert": "^3.1.0",
@@ -51,7 +58,6 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
     }
   },
   "eslintConfig": {
@@ -74,6 +80,5 @@
     "pretest": "eslint .",
     "test": "jest"
   },
-  "repository": "xw5/generator-gulpxw",
   "license": "Apache-2.0"
 }

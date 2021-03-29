@@ -39,12 +39,7 @@ module.exports = class extends Generator {
 
   writing() {
     // 直接复制的文件
-    let copyList = [
-      "package-lock.json",
-      "config.js",
-      "backup.gitignore",
-      ".eslintrc"
-    ];
+    let copyList = ["config.js", "backup.gitignore", ".eslintrc"];
 
     copyList.forEach(item => {
       this.fs.copy(this.templatePath(item), this.destinationPath(item));
