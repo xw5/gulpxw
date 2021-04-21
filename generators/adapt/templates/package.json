@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "gulp --env=development",
-    "build": "gulp --env=production"
+    "build": "gulp --env=production",
+    "sprite": "gulp sprite"
   },
   "repository": {
     "type": "git",

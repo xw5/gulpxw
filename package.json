@@ -1,6 +1,6 @@
 {
   "name": "generator-gulpxw",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "基于gulp的多页面脚手架",
   "author": {
     "name": "xiewu",
@@ -9,14 +9,16 @@
   "files": [
     "generators"
   ],
-  "main": "generators/index.js",
+  "main": "generators/app/index.js",
   "keywords": [
     "gulp",
     "gulpxw",
     "multi-page",
     "multi page scaffold",
     "generator-gulpxw",
-    "yeoman"
+    "yeoman",
+    "多页脚手架",
+    "脚手架"
   ],
   "homepage": "https://gitee.com/github-9819409/gulpxw",
   "repository": {
